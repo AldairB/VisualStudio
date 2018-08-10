@@ -57,13 +57,13 @@ namespace GitHub.Services
             await showDialog.ShowWithFirstConnection(viewModel);
         }
 
-        public async Task ShowCreateRepositoryDialog(IConnection connection)
+        public async Task<CreateRepositoryDialogResult> ShowCreateRepositoryDialog(IConnection connection)
         {
             Guard.ArgumentNotNull(connection, nameof(connection));
 
             var viewModel = factory.CreateViewModel<IRepositoryCreationViewModel>();
             await viewModel.InitializeAsync(connection);
-            await showDialog.Show(viewModel);
+            return (CreateRepositoryDialogResult)await showDialog.Show(viewModel);
         }
 
         public async Task<IConnection> ShowLoginDialog()
